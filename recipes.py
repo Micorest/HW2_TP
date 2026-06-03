@@ -1,3 +1,6 @@
+from typing import override
+
+
 class Ingredient:
     def __init__(self, name: str, quantity: float, unit: str) -> None:
         self.name = name
@@ -38,7 +41,7 @@ class Recipe:
         # не говорилось про проверку, но включил
         if not self.is_valid_ratio(ratio):
             raise ValueError("Некорректный коэффициент масштабирования")
-        return self.__class__(
+        return Recipe(
             self.title,
             [
                 Ingredient(
@@ -96,3 +99,17 @@ class ShoppingList:
         result = ShoppingList()
         result._items = self._items + other._items
         return result
+
+class DietaryRecipe(Recipe):
+    def __init__(self, title: str, diet_type: str, ingredients:list[Ingredient]  = None) -> None:
+        if ingredients is None:
+            ingredients = []
+        super().__init__(title, ingredients)
+        self.diet_type = diet_type
+    @override
+    def scale(self, ratio: float) -> 'DietaryRecipe':
+        scaled_recipe = super().scale(ratio)
+        return DietaryRecipe(scaled_recipe.title, self.diet_type, scaled_recipe.ingredients)
+    @override
+    def __str__(self) -> str:
+        return f"[{self.diet_type}] " + super().__str__()
