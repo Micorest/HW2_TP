@@ -47,7 +47,7 @@ def test_ingredient_repr_success():
 
 def test_ingredient_eq_success():
     ingredient1 = Ingredient("Мука", 100, "г")
-    ingredient2 = Ingredient("Мука", 100, "г")
+    ingredient2 = Ingredient("Мука", 500, "г")
     ingredient3 = Ingredient("Мука", 100, "кг")
     ingredient4 = Ingredient("Кофе", 100, "г")
     assert ingredient1 == ingredient2
