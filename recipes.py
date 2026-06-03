@@ -1,4 +1,4 @@
-from typing_extensions import override
+from typing import override
 
 
 class Ingredient:
@@ -101,7 +101,7 @@ class ShoppingList:
         return result
 
 class DietaryRecipe(Recipe):
-    def __init__(self, title: str, diet_type: str, ingredients:list[Ingredient]  = None) -> None:
+    def __init__(self, title: str, diet_type: str, ingredients:list[Ingredient] | None) -> None:
         if ingredients is None:
             ingredients = []
         super().__init__(title, ingredients)
